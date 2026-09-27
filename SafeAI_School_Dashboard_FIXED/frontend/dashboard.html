@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SafeAI School Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loading" class="loading">Loading dashboard…</div>
+
+  <div id="app" hidden>
+    <header>
+      <div class="logo">🛡️ SafeAI School</div>
+      <nav>
+        <button type="button" onclick="show('dashboard')">📊 Dashboard</button>
+        <button type="button" onclick="show('lessons')">📚 Lessons</button>
+        <button type="button" onclick="show('quiz')">📝 Quiz</button>
+        <button id="teacherNav" type="button" onclick="show('teacher')" hidden>👩‍🏫 Teacher</button>
+      </nav>
+      <div class="user-menu"><span id="who"></span><button class="logout" type="button" onclick="logout()">Logout</button></div>
+    </header>
+
+    <main>
+      <section id="dashboard" class="view">
+        <div class="hero">
+          <div>
+            <span class="badge">MY LEARNING</span>
+            <h1>Welcome, <span id="studentName"></span> 👋</h1>
+            <p>Build safer digital habits, complete lessons and earn badges.</p>
+          </div>
+          <div class="progress-ring">
+            <b id="percent">0%</b>
+            <span>Lessons</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div><b id="done">0/10</b><span>Lessons completed</span></div>
+          <div><b id="best">—</b><span>Best quiz score</span></div>
+          <div><b id="points">0</b><span>Safety points</span></div>
+          <div><b id="badgeCount">0</b><span>Badges earned</span></div>
+        </div>
+
+        <h2>🏅 Badges</h2>
+        <div id="badges" class="badge-grid"></div>
+
+        <div class="section-heading">
+          <div>
+            <h2>📝 Quiz History</h2>
+            <p class="muted">Every submitted quiz is saved here automatically.</p>
+          </div>
+          <button class="secondary" type="button" onclick="show('quiz')">Take quiz</button>
+        </div>
+        <div id="history" class="history-list"></div>
+      </section>
+
+      <section id="lessons" class="view" hidden>
+        <h1>📚 Lessons</h1>
+        <p class="muted">Study the material, then mark lessons complete.</p>
+        <div id="lessonGrid" class="grid"></div>
+      </section>
+
+      <section id="quiz" class="view" hidden>
+        <div class="page-title-row">
+          <div>
+            <h1>📝 Safety Quiz</h1>
+            <p class="muted">10 questions. The server calculates and saves your score.</p>
+          </div>
+        </div>
+        <div id="quizBox"></div>
+      </section>
+
+      <section id="teacher" class="view" hidden>
+        <h1>👩‍🏫 Teacher View</h1>
+        <p class="muted">View student learning progress. Passwords are never displayed.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Student</th><th>Email</th><th>Lessons</th><th>Best Quiz</th><th>Attempts</th></tr>
+            </thead>
+            <tbody id="teacherRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="lessonModal" class="modal" hidden>
+      <div class="modal-card">
+        <div class="modal-head">
+          <div><span class="badge">📖 STUDY LESSON</span><h2 id="modalTitle"></h2></div>
+          <button id="closeLesson" class="icon-btn" type="button">×</button>
+        </div>
+        <div class="modal-body">
+          <p id="modalIntro"></p>
+          <h3>📝 Key Points</h3><ul id="modalKeyPoints"></ul>
+          <h3>💡 Examples</h3><ul id="modalExamples"></ul>
+          <h3>⚠️ Safety Tips</h3><ul id="modalSafetyTips"></ul>
+          <div class="remember"><b>🎯 What students should remember</b><p id="modalRemember"></p></div>
+        </div>
+        <div class="modal-footer">
+          <button id="modalComplete" class="primary modal-complete" type="button">✅ Mark Complete</button>
+          <button id="backLesson" class="secondary" type="button">⬅️ Back / Close</button>
+        </div>
+      </div>
+    </div>
+
+    <button id="fab" type="button" aria-label="Open SafeAI Tutor">🤖</button>
+    <div id="chat" class="chat" aria-label="SafeAI Tutor">
+      <div class="chat-head"><b>SafeAI Tutor</b><button type="button" onclick="toggleChat()">×</button></div>
+      <div id="messages" class="messages">
+        <div class="msg bot">Hi! 👋 Ask me about privacy, phishing, passwords, deepfakes, misinformation or responsible AI.</div>
+      </div>
+      <form id="chatForm">
+        <input id="chatInput" placeholder="Ask a safety question…" maxlength="1000" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
